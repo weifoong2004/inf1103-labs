@@ -46,6 +46,8 @@ def main():
         entry = get_valid_input()
 
         if entry == "quit":
+            generate_report(total_inventory, failed_entries,
+                deliveries_processed, total_tax)
             break
 
         if entry is None:
@@ -57,9 +59,6 @@ def main():
         total_tax += tax
         deliveries_processed += 1
 
-        print(f"Accepted {entry} units | Tax: {round(tax, 2)} | "
-                f"Total inventory: {total_inventory}")
-
         if is_over_capacity(total_inventory):
             print("Warning: Total inventory exceeds", MAX_CAPACITY, "units.")
             break
@@ -68,8 +67,9 @@ def main():
         else:
             pass
 
-    generate_report(total_inventory, failed_entries,
-                    deliveries_processed, total_tax)
+        print(f"Accepted {entry} units | Tax: {round(tax, 2)} | "
+                f"Total inventory: {total_inventory}")
+
 
 if __name__ == "__main__":
     main()
