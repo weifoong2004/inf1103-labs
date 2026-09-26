@@ -85,7 +85,6 @@ def main():
             failed_entries += 1
             continue
 
-        history.append(entry)
         total_inventory = process_delivery(total_inventory, entry)
         tax = calculate_tax(entry)
         total_tax += tax
