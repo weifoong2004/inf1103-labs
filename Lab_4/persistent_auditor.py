@@ -28,6 +28,14 @@ def load_inventory(filename):
  
     return total, history
 
+def save_inventory(filename, total, history):
+    with open(filename, "w") as f:
+        f.write(f"{total}\n")
+        for entry in history:
+            f.write(f"{entry}\n")
+ 
+    print(f"Inventory successfully saved to {filename}")
+
 
 def get_valid_input():
     user_input = input("Enter stock quantity: ").strip()
@@ -55,13 +63,14 @@ def is_over_capacity(total):
 
 def generate_report(total_units, failed_attempts, deliveries=0, total_tax=0.0, history=None):
     history = history or []
-    print("\n====== Inventory Audit Report ======")
+    print("Total Units in Inventory:", total_units)
+    print("\n============= Inventory Audit Report =============")
     print("Total Deliveries Processed:", deliveries)
     print("Total Units in Inventory:", total_units)
     print("Total Tax Collected:", round(total_tax, 2))
     print("Number of Failed/Rejected Entries:", failed_attempts)
     print("Transaction History (all-time):", history)
-    print("====================================")
+    print("==================================================")
 
 def main():
 
@@ -70,7 +79,7 @@ def main():
     failed_entries = 0
     total_tax = 0.0
 
-    print("== Smart Inventory System ==")
+    print("============= Smart Inventory System =============")
     print("Enter a stock quantity, or type 'quit' to finish.\n")
 
     while True:
@@ -79,11 +88,21 @@ def main():
         if entry == "quit":
             generate_report(total_inventory, failed_entries,
                 deliveries_processed, total_tax, history)
+            save_inventory(INVENTORY_FILE, total_inventory, history)
             break
 
         if entry is None:
             failed_entries += 1
             continue
+
+        prospective_total = process_delivery(total_inventory, entry)
+ 
+        if is_over_capacity(prospective_total):
+            print(f"Warning: Adding {entry} units would bring the total to "
+                  f"{prospective_total}, exceeding the {MAX_CAPACITY}-unit limit.")
+            print("Entry rejected. Halting intake.")
+            failed_entries += 1
+            break
 
         history.append(entry)
         total_inventory = process_delivery(total_inventory, entry)
@@ -98,6 +117,7 @@ def main():
             print("Notice: Total inventory at max capacity (500 units).")
         else:
             pass
+
 
 if __name__ == "__main__":
     main()
