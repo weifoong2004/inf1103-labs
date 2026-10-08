@@ -1,8 +1,8 @@
 import json
 import os
 
-
-INVENTORY_FILE = "inventory.json"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+INVENTORY_FILE = os.path.join(SCRIPT_DIR, "inventory.json")
 
 DEFAULT_INVENTORY = [
     {"id": "P001", "name": "Laptop", "price": 1200.00, "stock": 15},
@@ -105,7 +105,12 @@ def search_product(inventory):
             return product
  
     print("Product not found.")
-    return None
+    return 0
+
+def save_inventory(filename, inventory):
+    with open(filename, "w") as f:
+        json.dump(inventory, f, indent=4)
+    print(f"Inventory saved successfully to {filename}.")
 
 
 
@@ -143,10 +148,17 @@ def main():
         elif choice == "4":
             search_product(inventory)
 
+        elif choice == "5":
+            print("\nSaving inventory...")
+            save_inventory(INVENTORY_FILE, inventory)
+
         elif choice == "6":
-            print("Exiting. Goodbye!")
-            break
-  
+            print("\nSaving inventory before exit...")
+            save_inventory(INVENTORY_FILE, inventory)
+            print("\nThank you for using Inventory Management System.")
+            print("Program terminated.")
+            break 
+
         else:
             print("Invalid option. Please choose a number between 1 and 6.")
  
