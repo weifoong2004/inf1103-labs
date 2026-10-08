@@ -10,6 +10,22 @@ DEFAULT_INVENTORY = [
     {"id": "P003", "name": "Keyboard", "price": 45.00, "stock": 25},
 ]
 
+def load_inventory(filename):
+    """Load inventory from a JSON file, or fall back to default data."""
+    if os.path.exists(filename):
+        print(f"{filename} found.")
+        try:
+            with open(filename, "r") as f:
+                data = json.load(f)
+            print("Inventory loaded successfully.")
+            return data
+        except (json.JSONDecodeError, ValueError):
+            print(f"Warning: {filename} is corrupted. Starting with default inventory.")
+            return [product.copy() for product in DEFAULT_INVENTORY]
+    else:
+        print(f"{filename} not found. Starting with default inventory.")
+        return [product.copy() for product in DEFAULT_INVENTORY]
+
 
 def display_all(inventory):
     print("Current Inventory")
@@ -50,6 +66,48 @@ def add_product(inventory):
     print("Product added successfully!")
     return inventory
 
+def update_stock(inventory):
+    print("Update Stock")
+    product_id = input("Enter Product ID: ").strip()
+ 
+    for product in inventory:
+        if product["id"] == product_id:
+            print("Product Found:")
+            print(f"Name: {product['name']}")
+            print(f"Current Stock: {product['stock']}")
+ 
+            new_stock = input("New Stock Quantity: ").strip()
+            if not new_stock.isdigit():
+                print("Error: Invalid stock quantity. Update cancelled.")
+                return inventory
+ 
+            product["stock"] = int(new_stock)
+            print("Stock updated successfully!")
+            return inventory
+ 
+    print("Product not found.")
+    return inventory
+ 
+ 
+def search_product(inventory):
+    print("Search Product")
+    product_id = input("Enter Product ID: ").strip()
+ 
+    for product in inventory:
+        if product["id"] == product_id:
+            print("Product Found")
+            print("-" * 50)
+            print(f"ID: {product['id']}")
+            print(f"Name: {product['name']}")
+            print(f"Price: ${product['price']:.2f}")
+            print(f"Stock: {product['stock']}")
+            print("-" * 50)
+            return product
+ 
+    print("Product not found.")
+    return None
+
+
 
 def display_menu():
     print("----------- MENU -----------")
@@ -61,13 +119,14 @@ def display_menu():
     print("6. Exit")
     print("----------------------------")
 
+
 def main():
     print("=" * 40)
     print("INVENTORY MANAGEMENT SYSTEM")
     print("=" * 40)
 
-    inventory = [product.copy() for product in DEFAULT_INVENTORY] 
- 
+    inventory = load_inventory(INVENTORY_FILE)
+
     while True:
         display_menu()
         choice = input("Enter option: ").strip()
@@ -77,6 +136,12 @@ def main():
  
         elif choice == "2":
             inventory = add_product(inventory)
+
+        elif choice == "3":
+            inventory = update_stock(inventory)
+ 
+        elif choice == "4":
+            search_product(inventory)
 
         elif choice == "6":
             print("Exiting. Goodbye!")
