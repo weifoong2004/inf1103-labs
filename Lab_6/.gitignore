@@ -1,0 +1,19 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- Virtual environments (if you ever create one) ---
+venv/
+.venv/
+env/
+
+# --- VS Code ---
+.vscode/
+
+# --- OS clutter ---
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+*.log
