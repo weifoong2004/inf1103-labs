@@ -1,14 +1,3 @@
-"""
-INF1103 Lab 6 - Object-Oriented Programming
-Inventory class
-
-Single Responsibility: manage a COLLECTION of Product objects.
-This class does not know how to load/save files, and it does not
-print menus or read user input - it only stores products and lets
-you add, search and display them.
-"""
-
-
 class Inventory:
     def __init__(self):
         self.__products = []
@@ -47,8 +36,6 @@ class Inventory:
 
     # -------------------------------------------------------------
     # get_all_products(): hands back the list so the main program can,
-    # e.g., convert it to dicts for saving. Inventory still owns the
-    # actual list; this is a read-only view for other code to use.
     # -------------------------------------------------------------
     def get_all_products(self):
         return self.__products

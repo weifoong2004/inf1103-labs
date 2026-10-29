@@ -1,31 +1,12 @@
-"""
-INF1103 Lab 6 - Object-Oriented Programming
-Inventory Management System (OOP refactor of the Week 5 program)
-
-Responsibilities in this file:
-  - File Handling: load_inventory() / save_inventory() (JSON <-> Product objects)
-  - Main Program: the menu loop, reading user input, and calling the
-    appropriate Inventory/Product methods
-
-The Product and Inventory classes themselves live in product.py and
-inventory.py and know nothing about menus or files - see those files
-for that half of the Single Responsibility Principle.
-"""
-
 import json
 import os
 
 from product import Product
 from inventory import Inventory
 
-# Anchor the file path to this script's own folder, so it works no
-# matter which directory you run `python main.py` from (and inside
-# Docker, regardless of the container's working directory).
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 INVENTORY_FILE = os.path.join(SCRIPT_DIR, "inventory.json")
 
-# Starter data used only the very first time the program runs, i.e.
-# when inventory.json does not exist yet.
 DEFAULT_PRODUCTS = [
     {"id": "P001", "name": "Laptop", "price": 1200.00, "stock": 15},
     {"id": "P002", "name": "Mouse", "price": 25.50, "stock": 40},
