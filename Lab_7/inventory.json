@@ -27,7 +27,7 @@
         "id": "P004",
         "name": "Antivirus Software",
         "price": 39.99,
-        "stock": 100,
+        "stock": 99,
         "type": "digital",
         "download_size": 250
     },

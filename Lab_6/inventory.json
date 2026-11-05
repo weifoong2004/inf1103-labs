@@ -22,5 +22,11 @@
         "name": "Monitor",
         "price": 67.0,
         "stock": 99
+    },
+    {
+        "id": "P005",
+        "name": "Phone",
+        "price": 699.0,
+        "stock": 10
     }
 ]
