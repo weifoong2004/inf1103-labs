@@ -33,11 +33,9 @@ class Order:
     def display_order(self) -> None:
         print(f"\nOrder ID: {self._order_id}")
         print("-" * 50)
-
         for order_line in self._order_lines:
             product = order_line.get_product()
             print(f"{product.get_name()} x {order_line.get_quantity()}")
             print(f"Subtotal: ${order_line.calculate_subtotal():.2f}")
-
         print("-" * 50)
         print(f"Total: ${self.calculate_total():.2f}")
