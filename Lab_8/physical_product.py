@@ -1,12 +1,14 @@
 from product import Product
 from can_be_shipped import CanBeShipped
+from supplier import Supplier
 
 SHIPPING_RATE_PER_KG = 2.50  # simple rule: $2.50 per kilogram
 
 
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, product_id, name, price, stock, weight):
-        super().__init__(product_id, name, price, stock)  # reuse Product's constructor
+    def __init__(self, product_id: str, name: str, price: float,
+                stock: int, weight: float, supplier: Supplier):
+        super().__init__(product_id, name, price, stock, supplier)
         self._weight = weight
 
     def get_weight(self):
