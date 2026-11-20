@@ -1,0 +1,67 @@
+[
+    {
+        "id": "P001",
+        "name": "Laptop",
+        "price": 1200.0,
+        "stock": 15,
+        "supplier": {
+            "supplier_id": "S000",
+            "name": "Unknown Supplier",
+            "contact_email": "unknown@example.com"
+        },
+        "type": "physical",
+        "weight": 2.2
+    },
+    {
+        "id": "P002",
+        "name": "Mouse",
+        "price": 25.5,
+        "stock": 40,
+        "supplier": {
+            "supplier_id": "S000",
+            "name": "Unknown Supplier",
+            "contact_email": "unknown@example.com"
+        },
+        "type": "physical",
+        "weight": 0.15
+    },
+    {
+        "id": "P003",
+        "name": "Keyboard",
+        "price": 45.0,
+        "stock": 25,
+        "supplier": {
+            "supplier_id": "S000",
+            "name": "Unknown Supplier",
+            "contact_email": "unknown@example.com"
+        },
+        "type": "physical",
+        "weight": 0.8
+    },
+    {
+        "id": "P004",
+        "name": "Antivirus Software",
+        "price": 39.99,
+        "stock": 100,
+        "supplier": {
+            "supplier_id": "S000",
+            "name": "Unknown Supplier",
+            "contact_email": "unknown@example.com"
+        },
+        "type": "digital",
+        "download_size": 250
+    },
+    {
+        "id": "P005",
+        "name": "Camera",
+        "price": 299.0,
+        "stock": 9,
+        "supplier": {
+            "supplier_id": "100",
+            "name": "me",
+            "contact_email": "me@hotmail.com"
+        },
+        "type": "physical",
+        "weight": 2.67
+    }
+]
