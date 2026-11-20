@@ -8,6 +8,7 @@ from digital_product import DigitalProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
 from supplier import Supplier
+from product_factory import ProductFactory
 
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -49,34 +50,23 @@ def create_supplier_from_dict(data: dict) -> Supplier:
 # -------------------------------------------------------------
 # create_product_from_dict(): Convert JSON data to Product
 # -------------------------------------------------------------
+
 def create_product_from_dict(data: dict) -> Product:
     product_type = data.get("type")
 
     supplier_data = data.get("supplier", DEFAULT_SUPPLIER)
     supplier = create_supplier_from_dict(supplier_data)
 
-    if product_type == "physical":
-        return PhysicalProduct(
-            data["id"],
-            data["name"],
-            data["price"],
-            data["stock"],
-            data["weight"],
-            supplier
-        )
-
-    elif product_type == "digital":
-        return DigitalProduct(
-            data["id"],
-            data["name"],
-            data["price"],
-            data["stock"],
-            data["download_size"],
-            supplier
-        )
-
-    else:
-        raise ValueError(f"Unknown product type: {product_type!r}")
+    return ProductFactory.create(
+        product_type,
+        data["id"],
+        data["name"],
+        data["price"],
+        data["stock"],
+        supplier,
+        weight=data.get("weight", 0.0),
+        download_size=data.get("download_size", 0.0)
+    )
 
 
 # -------------------------------------------------------------
